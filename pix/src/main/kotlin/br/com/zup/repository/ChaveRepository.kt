@@ -6,9 +6,9 @@ import io.micronaut.data.jpa.repository.JpaRepository
 import java.util.*
 
 @Repository
-interface ChaveRepository : JpaRepository<NovaChave, Long> {
+interface ChaveRepository : JpaRepository<NovaChave, UUID> {
 
     fun existsByChave(chave: String?) : Boolean
 
-   fun findByIdAndClienteId(pixId: UUID, clienteId: String) : Optional<NovaChave>
+   fun findByIdAndClienteId(pixId: UUID, clienteId: UUID) : Optional<NovaChave>
 }
