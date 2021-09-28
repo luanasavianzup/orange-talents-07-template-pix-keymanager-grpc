@@ -5,7 +5,10 @@ import br.com.zup.client.itau.ErpItauClient
 import br.com.zup.client.itau.response.ContaClienteErpResponse
 import br.com.zup.client.itau.response.InstituicaoErpResponse
 import br.com.zup.client.itau.response.TitularErpResponse
+import br.com.zup.model.Conta
+import br.com.zup.model.Instituicao
 import br.com.zup.model.NovaChave
+import br.com.zup.model.Titular
 import br.com.zup.repository.ChaveRepository
 import io.grpc.ManagedChannel
 import io.grpc.Status
@@ -63,10 +66,11 @@ internal class RegistraChaveTest2(
     @Test
     fun `nao deve cadastrar chave pix repetida`() {
         chaveRepository.save(NovaChave(
-            clienteId = clienteId,
+            clienteId = clienteId.toString(),
             tipoChave = TipoChave.CPF,
             chave = "63657520325",
-            tipoConta = TipoConta.CONTA_CORRENTE
+            tipoConta = TipoConta.CONTA_CORRENTE,
+            conta = Conta(Instituicao("", ""),"","", Titular("",""))
         ))
 
         val thrown = assertThrows<StatusRuntimeException> {

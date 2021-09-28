@@ -5,7 +5,10 @@ import br.com.zup.client.itau.ErpItauClient
 import br.com.zup.client.itau.response.ContaClienteErpResponse
 import br.com.zup.client.itau.response.InstituicaoErpResponse
 import br.com.zup.client.itau.response.TitularErpResponse
+import br.com.zup.model.Conta
+import br.com.zup.model.Instituicao
 import br.com.zup.model.NovaChave
+import br.com.zup.model.Titular
 import br.com.zup.repository.ChaveRepository
 import io.grpc.ManagedChannel
 import io.grpc.Status
@@ -24,7 +27,6 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
-import java.util.*
 
 @MicronautTest(transactional = false)
 internal class RegistraChaveTest(
@@ -35,7 +37,7 @@ internal class RegistraChaveTest(
     lateinit var itauClient: ErpItauClient
 
     companion object {
-        val clienteId = UUID.randomUUID()
+        val clienteId = String
     }
 
     @BeforeEach
@@ -57,7 +59,7 @@ internal class RegistraChaveTest(
             .setTipoConta(TipoConta.CONTA_CORRENTE)
             .build()
 
-        Mockito.`when`(itauClient.consulta(request.clienteId, TipoConta.valueOf(request.tipoConta.name)))
+        Mockito.`when`(itauClient.consulta(request.clienteId, request.tipoConta))
             .thenReturn(HttpResponse.ok(response()))
 
         val response: PixResponse = grpcClient.registra(request)
@@ -78,13 +80,14 @@ internal class RegistraChaveTest(
             .build()
 
         val chave = NovaChave(
-            clienteId = clienteId,
+            clienteId = clienteId.toString(),
             tipoChave = TipoChave.EMAIL,
             chave = "teste@email.com",
-            tipoConta = TipoConta.CONTA_CORRENTE
+            tipoConta = TipoConta.CONTA_CORRENTE,
+            conta = Conta(Instituicao("", ""),"","", Titular("",""))
         )
 
-        Mockito.`when`(itauClient.consulta(request.clienteId, TipoConta.valueOf(request.tipoConta.name)))
+        Mockito.`when`(itauClient.consulta(request.clienteId, request.tipoConta))
             .thenReturn(HttpResponse.ok(response()))
 
         val error = assertThrows<StatusRuntimeException> {

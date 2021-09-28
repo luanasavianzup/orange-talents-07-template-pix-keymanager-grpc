@@ -4,16 +4,13 @@ import br.com.zup.client.bcb.BcbClient
 import br.com.zup.client.bcb.TipoUsuario
 import br.com.zup.client.bcb.dto.BankAccountRequest
 import br.com.zup.client.bcb.dto.CreatePixKeyRequest
-import br.com.zup.client.bcb.dto.CreatePixKeyResponse
 import br.com.zup.client.bcb.dto.OwnerRequest
 import br.com.zup.client.itau.ErpItauClient
-import br.com.zup.client.itau.response.ContaClienteErpResponse
 import br.com.zup.dto.NovaChaveDto
 import br.com.zup.exception.ChaveExistenteException
 import br.com.zup.exception.ClienteNaoEncontradoException
 import br.com.zup.model.NovaChave
 import br.com.zup.repository.ChaveRepository
-import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.validation.Validated
 import jakarta.inject.Inject
@@ -31,7 +28,7 @@ class NovaChaveService(
     @Transactional
     fun registra(@Valid novaChave: NovaChaveDto): NovaChave {
         try {
-            val response = erpItauClient.consulta(novaChave.clienteId!!, novaChave.tipoConta!!.name)
+            val response = erpItauClient.consulta(novaChave.clienteId!!, novaChave.tipoConta!!)
 
             if (chaveRepository.existsByChave(novaChave.chave)) {
                 throw ChaveExistenteException()

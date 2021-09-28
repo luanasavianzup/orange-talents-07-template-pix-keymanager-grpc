@@ -13,7 +13,7 @@ import javax.validation.constraints.Size
 
 @Entity
 class NovaChave(
-    @field: NotNull val clienteId: UUID,
+    @field: NotNull val clienteId: String?,
     @field: NotNull @Enumerated(EnumType.STRING) val tipoChave: TipoChave,
     @field: Size(max = 77) var chave: String = UUID.randomUUID().toString(),
     @field: NotNull @field: Enumerated(EnumType.STRING) val tipoConta: TipoConta,
@@ -21,7 +21,7 @@ class NovaChave(
 ) {
     @field: Id
     @field: GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: UUID? = null
+    val id: Long? = null
 
     fun chaveAleatoria(chave: String): Boolean {
         if (tipoChave == TipoChave.ALEATORIA) {

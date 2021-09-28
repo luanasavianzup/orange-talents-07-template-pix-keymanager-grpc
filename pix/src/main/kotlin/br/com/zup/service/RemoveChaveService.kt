@@ -22,7 +22,7 @@ class RemoveChaveService(val chaveRepository: ChaveRepository,
     fun remove(@Valid removeChaveDto: RemoveChaveDto){
 
         val possivelChave = chaveRepository.findByIdAndClienteId(
-            UUID.fromString(removeChaveDto.pixId.toString()),
+            removeChaveDto.pixId.toLong(),
             removeChaveDto.clienteId
         )
         if(possivelChave.isEmpty)

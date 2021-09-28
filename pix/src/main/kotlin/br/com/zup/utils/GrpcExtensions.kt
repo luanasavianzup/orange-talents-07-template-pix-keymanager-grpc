@@ -25,6 +25,6 @@ fun PixRequest.toModel(): NovaChaveDto {
 fun RemoveChaveRequest.toModel(): RemoveChaveDto {
     return RemoveChaveDto(
         clienteId = clienteId,
-        pixId = pixId.toLong()
+        pixId = pixId
     )
 }
