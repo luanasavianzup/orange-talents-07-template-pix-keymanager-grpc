@@ -33,25 +33,11 @@ class NovaChaveService(
             if (chaveRepository.existsByChave(novaChave.chave)) {
                 throw ChaveExistenteException()
             }
-
-            val bcbResponse = bcbClient.cria(
-                CreatePixKeyRequest(
-                    novaChave.tipoChave!!.name,
-                    novaChave.chave!!,
-                    BankAccountRequest(
-                        100000,
-                        "0001",
-                        100000,
-                        novaChave.tipoConta.name
-                    ),
-                    OwnerRequest(
-                        TipoUsuario.NATURAL_PERSON.name,
-                        ",",
-                        ""
-                    )
-                )
-            )
             val chave = novaChave.toModel(response.body().toModel())
+
+            val bcbRequest = CreatePixKeyRequest.of(chave)
+
+            val bcbResponse = bcbClient.cria(bcbRequest)
 
             if (bcbResponse.status != HttpStatus.CREATED) {
                 throw IllegalStateException("Falha ao registrar a chave Pix")

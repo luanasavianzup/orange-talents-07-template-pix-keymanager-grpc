@@ -2,7 +2,9 @@ package br.com.zup.client.bcb
 
 import br.com.zup.client.bcb.dto.CreatePixKeyRequest
 import br.com.zup.client.bcb.dto.CreatePixKeyResponse
+import br.com.zup.client.bcb.dto.DeletePixKeyRequest
 import br.com.zup.client.bcb.dto.DeletePixKeyResponse
+import br.com.zup.model.NovaChave
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Body
@@ -23,6 +25,6 @@ interface BcbClient {
         produces = [MediaType.APPLICATION_XML],
         consumes = [MediaType.APPLICATION_XML]
     )
-    fun remove(@PathVariable key: String, @Body request: String): HttpResponse<DeletePixKeyResponse>
+    fun remove(@PathVariable key: String, @Body request: DeletePixKeyRequest): HttpResponse<DeletePixKeyResponse>
 
 }

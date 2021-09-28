@@ -1,10 +1,12 @@
 package br.com.zup.service
 
 import br.com.zup.client.bcb.BcbClient
+import br.com.zup.client.bcb.dto.DeletePixKeyRequest
 import br.com.zup.client.itau.ErpItauClient
 import br.com.zup.client.bcb.dto.DeletePixKeyResponse
 import br.com.zup.dto.RemoveChaveDto
 import br.com.zup.exception.ChaveNaoEncontradaException
+import br.com.zup.model.Conta
 import br.com.zup.repository.ChaveRepository
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
@@ -30,7 +32,8 @@ class RemoveChaveService(val chaveRepository: ChaveRepository,
 
         val chave = possivelChave.get()
 
-        val bcbResponse: HttpResponse<DeletePixKeyResponse> = bcbClient.remove(chave.chave, chave.conta.instituicao.ispb)
+        val bcbResponse: HttpResponse<DeletePixKeyResponse> = bcbClient.remove(chave.chave, DeletePixKeyRequest(chave.chave,
+            Conta.ITAU_UNIBANCO_ISPB))
         if (bcbResponse.status != HttpStatus.OK)
             throw ChaveNaoEncontradaException()
 
