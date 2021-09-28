@@ -9,6 +9,11 @@ package br.com.zup;
 service RegistraPixService {
   rpc registra (PixRequest) returns (PixResponse) {}
 }
+
+service RemovePixService {
+  rpc remove (RemoveChaveRequest) returns (RemoveChaveResponse) {}
+}
+
 enum TipoChave {
   UNKNOWN_CHAVE = 0;
   CPF = 1;
@@ -31,6 +36,17 @@ message PixRequest {
 }
 
 message PixResponse {
+  string clienteId = 1;
+  string pixId = 2;
+}
+
+
+message RemoveChaveRequest {
+  string clienteId = 1;
+  string pixId = 2;
+}
+
+message RemoveChaveResponse {
   string clienteId = 1;
   string pixId = 2;
 }

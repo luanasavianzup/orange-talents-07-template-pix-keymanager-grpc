@@ -1,16 +1,16 @@
 package br.com.zup.validation
 
 import br.com.zup.TipoChave
-import br.com.zup.dto.NovaChaveRequest
+import br.com.zup.dto.NovaChaveDto
 import io.micronaut.core.annotation.AnnotationValue
 import io.micronaut.validation.validator.constraints.ConstraintValidator
 import io.micronaut.validation.validator.constraints.ConstraintValidatorContext
 import jakarta.inject.Singleton
 
 @Singleton
-open class ValidPixKeyValidator : ConstraintValidator<ValidPixKey, NovaChaveRequest> {
+open class ValidPixKeyValidator : ConstraintValidator<ValidPixKey, NovaChaveDto> {
     override fun isValid(
-        value: NovaChaveRequest?,
+        value: NovaChaveDto?,
         annotationMetadata: AnnotationValue<ValidPixKey>,
         context: ConstraintValidatorContext
     ): Boolean {
