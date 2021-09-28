@@ -1,5 +1,5 @@
 package br.com.zup.client.bcb
 
-enum class TipoConta {
+enum class TipoContaBanco {
     CACC, SVGS;
 }

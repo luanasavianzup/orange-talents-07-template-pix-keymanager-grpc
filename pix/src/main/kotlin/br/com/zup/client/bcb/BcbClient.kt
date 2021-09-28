@@ -2,7 +2,6 @@ package br.com.zup.client.bcb
 
 import br.com.zup.client.bcb.dto.CreatePixKeyRequest
 import br.com.zup.client.bcb.dto.CreatePixKeyResponse
-import br.com.zup.client.bcb.dto.DeletePixKeyRequest
 import br.com.zup.client.bcb.dto.DeletePixKeyResponse
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.MediaType

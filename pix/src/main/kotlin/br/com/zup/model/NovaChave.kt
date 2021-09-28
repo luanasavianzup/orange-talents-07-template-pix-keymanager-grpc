@@ -2,12 +2,8 @@ package br.com.zup.model
 
 import br.com.zup.TipoChave
 import br.com.zup.TipoConta
-import br.com.zup.client.itau.response.ContaClienteErpResponse
-import br.com.zup.client.itau.response.InstituicaoErpResponse
-import br.com.zup.client.itau.response.TitularErpResponse
 import java.util.*
 import javax.persistence.*
-import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
