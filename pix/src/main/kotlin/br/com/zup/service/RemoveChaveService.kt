@@ -4,8 +4,10 @@ import br.com.zup.client.bcb.BcbClient
 import br.com.zup.client.bcb.dto.DeletePixKeyRequest
 import br.com.zup.client.itau.ErpItauClient
 import br.com.zup.client.bcb.dto.DeletePixKeyResponse
+import br.com.zup.client.itau.response.TitularErpResponse
 import br.com.zup.dto.RemoveChaveDto
 import br.com.zup.exception.ChaveNaoEncontradaException
+import br.com.zup.exception.ClienteNaoEncontradoException
 import br.com.zup.model.Conta
 import br.com.zup.repository.ChaveRepository
 import io.micronaut.http.HttpResponse
@@ -23,6 +25,12 @@ class RemoveChaveService(val chaveRepository: ChaveRepository,
 ) {
     fun remove(@Valid removeChaveDto: RemoveChaveDto){
 
+        try {
+            val clientResponse: HttpResponse<TitularErpResponse> = erpItauClient.consulta(removeChaveDto.clienteId!!)
+        }catch(e: Exception){
+            throw ClienteNaoEncontradoException()
+        }
+
         val possivelChave = chaveRepository.findByIdAndClienteId(
             removeChaveDto.pixId.toLong(),
             removeChaveDto.clienteId
@@ -35,7 +43,7 @@ class RemoveChaveService(val chaveRepository: ChaveRepository,
         val bcbResponse: HttpResponse<DeletePixKeyResponse> = bcbClient.remove(chave.chave, DeletePixKeyRequest(chave.chave,
             Conta.ITAU_UNIBANCO_ISPB))
         if (bcbResponse.status != HttpStatus.OK)
-            throw ChaveNaoEncontradaException()
+            throw IllegalStateException("Erro ao remover a chave do Banco Central")
 
         chaveRepository.delete(chave)
     }

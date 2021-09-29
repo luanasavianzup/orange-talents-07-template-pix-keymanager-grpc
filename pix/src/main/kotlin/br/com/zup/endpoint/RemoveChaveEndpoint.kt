@@ -29,25 +29,28 @@ class RemoveChaveEndpoint(@Inject private val removeChaveService: RemoveChaveSer
                 Status.INTERNAL
                 .withDescription(e.message)
                 .asRuntimeException())
-        }
-        catch (e: ConstraintViolationException){
+            return
+        }catch (e: ConstraintViolationException){
             responseObserver?.onError(
                 Status.INVALID_ARGUMENT
                     .withDescription(e.message)
                     .asRuntimeException()
             )
+            return
         }catch (e: ClienteNaoEncontradoException){
             responseObserver?.onError(
                 Status.NOT_FOUND
                     .withDescription(e.message)
                     .asRuntimeException()
             )
+            return
         }catch (e: ChaveNaoEncontradaException){
             responseObserver?.onError(
                 Status.NOT_FOUND
                     .withDescription(e.message)
                     .asRuntimeException()
             )
+            return
         }
 
         val response = RemoveChaveResponse.newBuilder()

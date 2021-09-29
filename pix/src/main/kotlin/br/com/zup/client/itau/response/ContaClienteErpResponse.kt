@@ -7,7 +7,7 @@ import java.lang.reflect.Array.get
 
 @Introspected
 data class ContaClienteErpResponse(
-    val tipo: String,
+    val tipo: TipoConta,
     val instituicao: InstituicaoErpResponse,
     val agencia: String,
     val numero: String,
