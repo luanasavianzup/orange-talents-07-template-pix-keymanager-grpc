@@ -26,7 +26,7 @@ class RemoveChaveService(val chaveRepository: ChaveRepository,
     fun remove(@Valid removeChaveDto: RemoveChaveDto){
 
         try {
-            val clientResponse: HttpResponse<TitularErpResponse> = erpItauClient.consulta(removeChaveDto.clienteId!!)
+            val clientResponse: HttpResponse<TitularErpResponse> = erpItauClient.consulta(removeChaveDto.clienteId)
         }catch(e: Exception){
             throw ClienteNaoEncontradoException()
         }

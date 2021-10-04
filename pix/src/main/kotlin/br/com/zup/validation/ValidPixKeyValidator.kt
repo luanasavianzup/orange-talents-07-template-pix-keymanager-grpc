@@ -17,7 +17,7 @@ open class ValidPixKeyValidator : ConstraintValidator<ValidPixKey, NovaChaveDto>
         if(value?.chave == null) {
             return true
         }
-        when(value?.tipoChave){
+        when(value.tipoChave){
             TipoChave.CPF -> return value.chave.matches("^[0-9]{11}\$".toRegex())
             TipoChave.EMAIL -> return value.chave.matches("[a-z0-9!#\$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#\$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?".toRegex())
             TipoChave.CELULAR -> return value.chave.matches("^\\+[1-9][0-9]\\d{1,14}\$".toRegex())

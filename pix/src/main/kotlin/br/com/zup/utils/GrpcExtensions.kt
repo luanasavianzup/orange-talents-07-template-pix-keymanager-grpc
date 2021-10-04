@@ -1,9 +1,7 @@
 package br.com.zup.utils
 
-import br.com.zup.PixRequest
-import br.com.zup.RemoveChaveRequest
-import br.com.zup.TipoChave
-import br.com.zup.TipoConta
+import br.com.zup.*
+import br.com.zup.dto.ConsultaChaveDto
 import br.com.zup.dto.NovaChaveDto
 import br.com.zup.dto.RemoveChaveDto
 
@@ -26,5 +24,13 @@ fun RemoveChaveRequest.toModel(): RemoveChaveDto {
     return RemoveChaveDto(
         clienteId = clienteId,
         pixId = pixId
+    )
+}
+
+fun ConsultaChaveRequest.toModel(): ConsultaChaveDto {
+    return ConsultaChaveDto(
+        clienteId = pixId.clienteId,
+        pixId = pixId.pixId,
+        chave = chave
     )
 }

@@ -2,6 +2,7 @@ package br.com.zup.model
 
 import br.com.zup.TipoChave
 import br.com.zup.TipoConta
+import java.time.LocalDateTime
 import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.NotNull
@@ -18,6 +19,7 @@ class NovaChave(
     @field: Id
     @field: GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
+    val criadaEm: LocalDateTime = LocalDateTime.now()
 
     fun chaveAleatoria(chave: String): Boolean {
         if (tipoChave == TipoChave.ALEATORIA) {
